@@ -86,13 +86,14 @@
             </objects>
             <point key="canvasLocation" x="121.5" y="424"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--My Tabbar Controller-->
         <scene sceneID="bqF-1F-svb">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="hZb-Sw-JGY" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="hZb-Sw-JGY" customClass="MyTabbarController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="dBW-ha-CI0"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="1nf-AU-Vua">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>

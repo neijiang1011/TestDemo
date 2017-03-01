@@ -16,6 +16,8 @@
 #import "SDAutoLayout.h"
 #import "Masonry.h"
 #import "XHToast.h"
+#import "MBProgressHUD.h"
+#import "MedicineBoxNetMethod.h"
 
 #define SCREENWIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
