@@ -10,6 +10,7 @@
 #import "RegisterViewController.h"
 #import "RetrievePasswordViewController.h"
 
+//extern NSInteger typeCode;
 @interface LoginViewController ()
 
 @property (strong,nonatomic)UIImageView *backgroundView;
@@ -17,7 +18,10 @@
 @property (strong,nonatomic)UITextField *account;
 @property (strong,nonatomic)UITextField *password;
 
+
 @end
+
+
 
 @implementation LoginViewController
 
@@ -28,15 +32,15 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self customTitle];
-    [self createLeftAndRightItem];
+    //[self createLeftAndRightItem];
     [self createUI];
 }
 
 //定义左右item
-- (void)createLeftAndRightItem {
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"找回密码" style:UIBarButtonItemStylePlain target:self action:@selector(retrievePas)];
-    self.navigationItem.rightBarButtonItem = rightBtn;
-}
+//- (void)createLeftAndRightItem {
+//    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"找回密码" style:UIBarButtonItemStylePlain target:self action:@selector(retrievePas)];
+//    self.navigationItem.rightBarButtonItem = rightBtn;
+//}
 
 - (void)retrievePas {
     RetrievePasswordViewController *vc = [[RetrievePasswordViewController alloc]init];
@@ -118,24 +122,27 @@
     //registerBtn
     UIButton *registerBtn = [[UIButton alloc]init];
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
-    registerBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    registerBtn.layer.borderWidth = 0.5;
-    registerBtn.layer.masksToBounds = YES;
-    registerBtn.layer.cornerRadius = 20;
+//    registerBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+//    registerBtn.layer.borderWidth = 0.5;
+//    registerBtn.layer.masksToBounds = YES;
+//    registerBtn.layer.cornerRadius = 20;
     [self.view addSubview:registerBtn];
-    registerBtn.backgroundColor = UIColorFromHex(0xdddddd);
+    //registerBtn.backgroundColor = UIColorFromHex(0xdddddd);
     [registerBtn setTitleColor:UIColorFromHex(0x3bd793) forState:UIControlStateNormal];
     [registerBtn addTarget:self action:@selector(clickRegisterBtn) forControlEvents:UIControlEventTouchUpInside];
     
+    //findBtn
+    UIButton *findBtn = [[UIButton alloc]init];
+    [findBtn setTitle:@"找回密码" forState:UIControlStateNormal];
+    findBtn.backgroundColor = [UIColor blueColor];
+    [self.view addSubview:findBtn];
+    //registerBtn.backgroundColor = UIColorFromHex(0xdddddd);
+    [registerBtn setTitleColor:UIColorFromHex(0x3bd793) forState:UIControlStateNormal];
+    [registerBtn addTarget:self action:@selector(retrievePas) forControlEvents:UIControlEventTouchUpInside];
     
-    CGFloat initWidth = SCREENWIDTH-40;
-    //布局
-    [_backgroundView mas_makeConstraints:^(MASConstraintMaker *maker){
-        maker.top.equalTo(self.view).equalTo(@70);
-        maker.left.equalTo(self.view).offset(20);
-        maker.right.equalTo(self.view).offset(-20);
-        maker.height.equalTo(@(283.f/346.f*initWidth));
-    }];
+    
+    TypeJudge *type = [TypeJudge sharedManager];
+    _backgroundView.frame = CGRectMake(0, 0, type.currentHorizontalScaling*1080, type.currentVerticalScaling*1080);
     
     
     //accout
@@ -147,14 +154,14 @@
     }];
     
     [accountLine mas_makeConstraints:^(MASConstraintMaker *maker){
-        maker.top.equalTo(accountView.mas_bottom).offset(10);
+        maker.top.equalTo(accountView.mas_bottom).offset(10*type.currentVerticalScaling*3);
         maker.left.equalTo(self.view).offset(35);
         maker.right.equalTo(self.view).offset(-35);
         maker.height.equalTo(@1);
     }];
     
     [accountTextField mas_makeConstraints:^(MASConstraintMaker *maker){
-        maker.left.equalTo(accountView.mas_right).offset(10);
+        maker.left.equalTo(accountView.mas_right).offset(10*type.currentVerticalScaling*3);
         maker.bottom.equalTo(accountLine.mas_top).offset(-16);
         maker.height.equalTo(@16);
         maker.width.equalTo(@(SCREENWIDTH-150));
@@ -162,21 +169,21 @@
     
     //password
     [passwordView mas_makeConstraints:^(MASConstraintMaker *maker){
-        maker.top.equalTo(accountLine.mas_bottom).offset(20);
+        maker.top.equalTo(accountLine.mas_bottom).offset(20*type.currentVerticalScaling*3);
         maker.left.equalTo(self.view).offset(43);
         maker.width.equalTo(@28);
         maker.height.equalTo(@28);
     }];
     
     [passwordLine mas_makeConstraints:^(MASConstraintMaker *maker){
-        maker.top.equalTo(passwordView.mas_bottom).offset(10);
+        maker.top.equalTo(passwordView.mas_bottom).offset(10*type.currentVerticalScaling*3);
         maker.left.equalTo(self.view).offset(35);
         maker.right.equalTo(self.view).offset(-35);
         maker.height.equalTo(@1);
     }];
     
     [passwordTextField mas_makeConstraints:^(MASConstraintMaker *maker){
-        maker.left.equalTo(passwordView.mas_right).offset(10);
+        maker.left.equalTo(passwordView.mas_right).offset(10*type.currentVerticalScaling*3);
         maker.bottom.equalTo(passwordLine.mas_top).offset(-16);
         maker.height.equalTo(@16);
         maker.width.equalTo(@(SCREENWIDTH-150));
@@ -184,17 +191,26 @@
     
     //loginBtn
     [loginBtn mas_makeConstraints:^(MASConstraintMaker *maker){
-        maker.top.equalTo(passwordLine.mas_bottom).equalTo(@30);
+        maker.top.equalTo(passwordLine.mas_bottom).offset(30*type.currentVerticalScaling*3);
         maker.left.equalTo(self.view).offset(35);
         maker.right.equalTo(self.view).offset(-35);
         maker.height.equalTo(@40);
     }];
     
     [registerBtn mas_makeConstraints:^(MASConstraintMaker *maker){
-        maker.top.equalTo(loginBtn.mas_bottom).equalTo(@30);
-        maker.left.equalTo(self.view).offset(35);
+        maker.top.equalTo(loginBtn.mas_bottom).offset(16*type.currentVerticalScaling*3);
+        //maker.left.equalTo(self.view).offset(35);
+        maker.width.equalTo(@40);
         maker.right.equalTo(self.view).offset(-35);
-        maker.height.equalTo(@40);
+        maker.height.equalTo(@16);
+    }];
+    
+    [findBtn mas_makeConstraints:^(MASConstraintMaker *maker){
+        maker.top.equalTo(loginBtn.mas_bottom).offset(16*type.currentVerticalScaling*3);
+        //maker.left.equalTo(self.view).offset(35);
+        maker.width.equalTo(@100);
+        maker.left.equalTo(self.view).offset(35);
+        maker.height.equalTo(@16);
     }];
     
 }

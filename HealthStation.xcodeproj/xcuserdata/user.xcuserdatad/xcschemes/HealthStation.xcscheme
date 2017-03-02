@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CE67CC761E027321006E8661"
-               BuildableName = "&#x4e5d;&#x5bab;&#x683c;.app"
+               BuildableName = "&#x4e5d;&#x5fc3;&#x683c;.app"
                BlueprintName = "HealthStation"
                ReferencedContainer = "container:HealthStation.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CE67CC761E027321006E8661"
-            BuildableName = "&#x4e5d;&#x5bab;&#x683c;.app"
+            BuildableName = "&#x4e5d;&#x5fc3;&#x683c;.app"
             BlueprintName = "HealthStation"
             ReferencedContainer = "container:HealthStation.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CE67CC761E027321006E8661"
-            BuildableName = "&#x4e5d;&#x5bab;&#x683c;.app"
+            BuildableName = "&#x4e5d;&#x5fc3;&#x683c;.app"
             BlueprintName = "HealthStation"
             ReferencedContainer = "container:HealthStation.xcodeproj">
          </BuildableReference>
@@ -95,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CE67CC761E027321006E8661"
-            BuildableName = "&#x4e5d;&#x5bab;&#x683c;.app"
+            BuildableName = "&#x4e5d;&#x5fc3;&#x683c;.app"
             BlueprintName = "HealthStation"
             ReferencedContainer = "container:HealthStation.xcodeproj">
          </BuildableReference>

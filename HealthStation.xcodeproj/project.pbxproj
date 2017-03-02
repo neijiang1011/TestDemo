@@ -49,6 +49,7 @@
 		CE5041511E63F47D007D4AEA /* DiagnoseResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5041501E63F47D007D4AEA /* DiagnoseResultViewController.m */; };
 		CE5041541E6403FB007D4AEA /* InDiagnoseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5041531E6403FB007D4AEA /* InDiagnoseViewController.m */; };
 		CE593E221E0A580100F07FA6 /* MoreDoctorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE593E211E0A580100F07FA6 /* MoreDoctorViewController.m */; };
+		CE5FA6D31E67F21A00E4DC1D /* TypeJudge.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5FA6D21E67F21A00E4DC1D /* TypeJudge.m */; };
 		CE61EF4E1E56934900E00329 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = CE61EF2E1E56934900E00329 /* MKAnnotationView+WebCache.m */; };
 		CE61EF4F1E56934900E00329 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = CE61EF301E56934900E00329 /* NSData+ImageContentType.m */; };
 		CE61EF501E56934900E00329 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = CE61EF321E56934900E00329 /* SDImageCache.m */; };
@@ -221,6 +222,8 @@
 		CE5041531E6403FB007D4AEA /* InDiagnoseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InDiagnoseViewController.m; sourceTree = "<group>"; };
 		CE593E201E0A580100F07FA6 /* MoreDoctorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreDoctorViewController.h; sourceTree = "<group>"; };
 		CE593E211E0A580100F07FA6 /* MoreDoctorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreDoctorViewController.m; sourceTree = "<group>"; };
+		CE5FA6D11E67F21900E4DC1D /* TypeJudge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeJudge.h; sourceTree = "<group>"; };
+		CE5FA6D21E67F21A00E4DC1D /* TypeJudge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypeJudge.m; sourceTree = "<group>"; };
 		CE61EF2D1E56934900E00329 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		CE61EF2E1E56934900E00329 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		CE61EF2F1E56934900E00329 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -719,6 +722,8 @@
 				CE782A351E669ECB00168F05 /* RetrievePasswordViewController.m */,
 				CE782A361E669ECB00168F05 /* ResetPasswordViewController.h */,
 				CE782A371E669ECB00168F05 /* ResetPasswordViewController.m */,
+				CE5FA6D11E67F21900E4DC1D /* TypeJudge.h */,
+				CE5FA6D21E67F21A00E4DC1D /* TypeJudge.m */,
 			);
 			path = "登录注册相关";
 			sourceTree = "<group>";
@@ -1046,6 +1051,7 @@
 				CE782A6D1E66A16700168F05 /* AFNetworkReachabilityManager.m in Sources */,
 				CE7A8BB01E090CDB007104BB /* NearbyHospitalTableViewCell.m in Sources */,
 				CE61EF561E56934900E00329 /* SDWebImagePrefetcher.m in Sources */,
+				CE5FA6D31E67F21A00E4DC1D /* TypeJudge.m in Sources */,
 				CE18F71C1E5FCD5300D7A158 /* YFViewPager.m in Sources */,
 				CE20C5221E5A940000B261C2 /* MASConstraintMaker.m in Sources */,
 				70BEEF721E615CF1007A7C3B /* SettingViewController.m in Sources */,

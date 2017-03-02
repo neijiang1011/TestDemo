@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
+//extern NSInteger typeCode;
 
 @end
 
@@ -17,6 +18,50 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    NSInteger typeCode;
+    TypeJudge *type = [TypeJudge sharedManager];
+    
+    if ([UIScreen mainScreen].bounds.size.height == 480) {
+        typeCode = type4S;
+    }else if ([UIScreen mainScreen].bounds.size.height == 568) {
+        typeCode = type5S;
+    }else if ([UIScreen mainScreen].bounds.size.height == 667) {
+        typeCode = type6;
+    }else if ([UIScreen mainScreen].bounds.size.height == 736) {
+        typeCode = type6P;
+    }
+    
+    switch (typeCode) {
+        case type4S:
+        {
+            type.currentHorizontalScaling = IPhone4SWidthScaling;
+            type.currentVerticalScaling = IPhone4SHeightScaling;
+        }
+            break;
+        case type5S:
+        {
+            type.currentHorizontalScaling = IPhone5SWidthScaling;
+            type.currentVerticalScaling = IPhone5SHeightScaling;
+        }
+            break;
+        case type6:
+        {
+            type.currentHorizontalScaling = IPhone6WidthScaling;
+            type.currentVerticalScaling = IPhone6HeightScaling;
+        }
+            break;
+        case type6P:
+        {
+            type.currentHorizontalScaling = IPhone6PWidthScaling;
+            type.currentVerticalScaling = IPhone6PHeightScaling;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    
     return YES;
 }
 
