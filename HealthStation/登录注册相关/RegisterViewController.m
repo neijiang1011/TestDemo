@@ -7,7 +7,7 @@
 //
 
 #import "RegisterViewController.h"
-#import "HyperLinksButton.h"
+//#import "HyperLinksButton.h"
 
 @interface RegisterViewController ()
 {
@@ -84,7 +84,7 @@
             UIButton *captchaBtn = [[UIButton alloc]init];
             self.verifyBtn = captchaBtn;
             [captchaBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-            captchaBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            captchaBtn.layer.borderColor = UIColorFromHex(0x3bd793).CGColor;
             captchaBtn.layer.borderWidth = 0.5;
             captchaBtn.layer.masksToBounds = YES;
             captchaBtn.layer.cornerRadius = 10;
@@ -145,29 +145,39 @@
     //label
     UILabel *agreementLabel = [[UILabel alloc]init];
     agreementLabel.text = @"我已看过并同意";
-    agreementLabel.font = [UIFont systemFontOfSize:16];
+    agreementLabel.font = [UIFont systemFontOfSize:14];
     [self.view addSubview:agreementLabel];
     
     [agreementLabel mas_makeConstraints:^(MASConstraintMaker *maker){
         maker.left.equalTo(selectBtn.mas_right).offset(10);
         maker.top.equalTo(lastLine.mas_bottom).offset(37);
-        maker.width.equalTo(@120);
-        maker.height.equalTo(@16);
+        maker.width.equalTo(@110);
+        maker.height.equalTo(@14);
     }];
     
+    
+    
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:@"《用户注册协议》"];
+    NSRange strRange = {0,[str length]};
+    [str addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:strRange];//设置下划线样式
+    [str addAttribute:NSUnderlineColorAttributeName value:UIColorFromHex(0x3bd793) range:strRange];//设置了下划线的颜色
+    [str addAttribute:NSForegroundColorAttributeName value:UIColorFromHex(0x3bd793) range:strRange];
+    //[_awardDisplayBtn setAttributedTitle:str forState:UIControlStateNormal];
+    
     //agreementBtn
-    HyperLinksButton *registerAgreementBtn = [[HyperLinksButton alloc]init];
-    [registerAgreementBtn setColor:UIColorFromHex(0x1cb9cc)];//设置下划线颜色
-    [registerAgreementBtn setTitleColor:UIColorFromHex(0x1cb9cc) forState:UIControlStateNormal];
-    [registerAgreementBtn setTitle:@"《用户注册协议》" forState:UIControlStateNormal];
+    UIButton *registerAgreementBtn = [[UIButton alloc]init];
+    //[registerAgreementBtn setTitleColor:UIColorFromHex(0x3bd793) forState:UIControlStateNormal];
+    registerAgreementBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    //[registerAgreementBtn setTitle:@"《用户注册协议》" forState:UIControlStateNormal];
+    [registerAgreementBtn setAttributedTitle:str forState:UIControlStateNormal];
     //[registerAgreementBtn addTarget:self action:@selector(clickCustomerAgreementBtn) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:registerAgreementBtn];
     
     [registerAgreementBtn mas_makeConstraints:^(MASConstraintMaker *maker){
         maker.left.equalTo(agreementLabel.mas_right).offset(-10);
         maker.top.equalTo(lastLine.mas_bottom).offset(37);
-        maker.width.equalTo(@145);
-        maker.height.equalTo(@16);
+        maker.width.equalTo(@120);
+        maker.height.equalTo(@14);
     }];
     
     //registerBtn

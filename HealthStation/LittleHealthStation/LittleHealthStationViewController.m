@@ -29,11 +29,26 @@
 
 @implementation LittleHealthStationViewController
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.tabBarItem.image = [[UIImage imageNamed:@"tab健康小站-未选中"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    self.tabBarItem.selectedImage = [[UIImage imageNamed:@"健康小站-选中"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.navigationController.tabBarItem.image = [[UIImage imageNamed:@"tab健康小站-未选中"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.navigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"健康小站-选中"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     [self layoutUI];
 }
@@ -222,8 +237,11 @@
 
 
 - (void)clickStethoscope {
-    DiagnoseResultViewController *diagVC = [[DiagnoseResultViewController alloc]init];
-    [self.navigationController pushViewController:diagVC animated:YES];
+//    DiagnoseResultViewController *diagVC = [[DiagnoseResultViewController alloc]init];
+//    [self.navigationController pushViewController:diagVC animated:YES];
+    InDiagnoseViewController *inDiaVC = [[InDiagnoseViewController alloc]init];
+    inDiaVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:inDiaVC animated:YES];
 }
 
 - (void)clickBox {

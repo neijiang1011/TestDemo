@@ -22,11 +22,20 @@
 #import "SearchDepartmentViewController.h"
 #import "MyInquiryTableViewController.h"
 
+
+#import "DoctorDetailViewController.h"
+//#import "HealthKnowledgeViewController.h"
+#import "KnowledgeDetailViewController.h"
+
+
 @interface MedicalNavigatorViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
 
 @property (nonatomic,strong)NearbyHosModel *hosModel;
 @property (nonatomic,strong)NearbyDoctorModel *docModel;
 @property (nonatomic,strong)HealthKnowledgeModel *healthModel;
+
+
+@property (nonatomic,strong)NSArray *headerTitleArr;
 
 //轮播器
 @property (strong,nonatomic)SDCycleScrollView *cycleSV;
@@ -35,13 +44,35 @@
 
 @implementation MedicalNavigatorViewController
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //self.tabBarController.tabBar.tintColor = [UIColor blackColor];
-    self.tabBarItem.image = [[UIImage imageNamed:@"医疗导航-未选中"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    self.tabBarItem.selectedImage = [[UIImage imageNamed:@"医疗导航-选中"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.navigationController.tabBarItem.image = [[UIImage imageNamed:@"医疗导航-未选中"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.navigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"医疗导航-选中"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
+    
+    NSArray *headerTitleArr = @[@"医院推荐",@"名医问诊",@"健康知识汇"];
+    _headerTitleArr = headerTitleArr;
+    //NSArray *headerImageArr = @[@"医院推荐",@"名医问诊",@"健康知识汇"];
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self createTestModel];
     [self createUI];
 }
@@ -69,7 +100,7 @@
 
 
 - (void)createUI {
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT-64-49) style:UITableViewStyleGrouped];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-49) style:UITableViewStyleGrouped];
     [self.view addSubview:tableView];
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -93,11 +124,27 @@
     cycleScrollView.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     //         --- 轮播时间间隔，默认1.0秒，可自定义
     cycleScrollView.autoScrollTimeInterval = 2.0;
+    cycleScrollView.currentPageDotColor = UIColorFromHex(0x3bd793);
+    cycleScrollView.pageDotColor = [UIColor whiteColor];
+    cycleScrollView.pageControlDotSize = CGSizeMake(6, 6);
     //[se addSubview:carouselView];
+    
+    UILabel *PMLabel = ({
+        //PM label
+        UILabel *rowLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 32, SCREENWIDTH, 12)];
+        rowLabel.textColor = UIColorFromHex(0xffffff);
+        rowLabel.font = [UIFont systemFontOfSize:12];
+        rowLabel.text = @"成都 PM2.5：100  雾霾严重，请注意防护。";
+        rowLabel.textAlignment = NSTextAlignmentCenter;
+        
+        rowLabel;
+    });
+    [tableHeaderView addSubview:PMLabel];
     
     
         //三个横排选型
-        NSArray *rowTitleArr = @[@"免费问诊",@"查看科室",@"我的问诊"];
+        NSArray *rowTitleArr = @[@"免费问诊",@"查科室",@"我的问诊"];
+    NSArray *rowImageArr = @[@"免费问诊",@"查看科室",@"我的问诊"];
         CGFloat rowWidth = (SCREENWIDTH)/3.0f;
         for (int i=0; i<rowTitleArr.count; i++) {
             UIView *rowView = [[UIView alloc]initWithFrame:CGRectMake(i*rowWidth, 175, rowWidth, 70)];
@@ -106,7 +153,7 @@
             UIImageView *rowImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 10+175, 27, 27)];
             rowImageView.centerX = rowView.centerX;
             //rowImageView.centerX = (Dis+i*(rowWidth+Dis/2)+rowWidth/2.0f);//要搞清楚自己是添加到哪个父view上面的。此时的坐标系是相对于哪个view来建立的。这里该参考的父亲view是rowView,而不是tableHeaderView。所以这里的centerx出现了问题。
-            rowImageView.image = [UIImage imageNamed:rowTitleArr[i]];
+            rowImageView.image = [UIImage imageNamed:rowImageArr[i]];
             [tableHeaderView addSubview:rowImageView];
     
             UILabel *rowLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 43+175, 100, 12)];
@@ -142,16 +189,19 @@
 
 - (void)freeInquiry {
     FreeInquiryViewController *freeVC = [[FreeInquiryViewController alloc]init];
+    freeVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:freeVC animated:YES];
 }
 
 - (void)searchDepartment {
     SearchDepartmentViewController *searchVC = [[SearchDepartmentViewController alloc]init];
+    searchVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:searchVC animated:YES];
 }
 
 - (void)myInquiry {
     MyInquiryTableViewController *inquiryVC = [[MyInquiryTableViewController alloc]init];
+    inquiryVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:inquiryVC animated:YES];
 }
 
@@ -275,7 +325,13 @@
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
     headerView.backgroundColor = [UIColor whiteColor];
     
-    UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(16, 17, 200, 16)];
+    
+    UIImageView *headerImageView = [[UIImageView alloc]initWithFrame:CGRectMake(16, 13, 24, 24)];
+    headerImageView.image = [UIImage imageNamed:_headerTitleArr[section]];
+    [headerView addSubview:headerImageView];
+    
+    
+    UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(48, 17, 100, 16)];
     [headerView addSubview:headerLabel];
     if (section == 0) {
         headerLabel.text = @"附近医院";
@@ -284,7 +340,6 @@
     }else {
         headerLabel.text = @"健康知识汇";
     }
-    
     headerLabel.textColor = UIColorFromHex(0x4f4c5f);
     headerLabel.font = [UIFont systemFontOfSize:16];
     
@@ -297,13 +352,13 @@
         moreLabel.font = [UIFont systemFontOfSize:12];
         moreLabel.textAlignment = NSTextAlignmentRight;
         if (section == 0) {
-            moreLabel.text = @"更多医院";
+            moreLabel.text = @"更多";
         }else {
-            moreLabel.text = @"更多医生";
+            moreLabel.text = @"更多";
         }
         [headerView addSubview:moreLabel];
         
-        UIButton *moreBtn = [[UIButton alloc]initWithFrame:moreLabel.frame];
+        UIButton *moreBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREENWIDTH-116, 0, 116, 50)];
         moreBtn.backgroundColor = [UIColor clearColor];
         if (section == 0) {
             [moreBtn addTarget:self action:@selector(showMoreHos) forControlEvents:UIControlEventTouchUpInside];
@@ -321,13 +376,46 @@
 
 - (void)showMoreHos {
     MoreHosTableViewController *moreHosVC = [[MoreHosTableViewController alloc]init];
+    moreHosVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:moreHosVC animated:YES];
 }
 
 - (void)showMoreDoc {
     MoreDoctorViewController *moreDocVC = [[MoreDoctorViewController alloc]init];
+    moreDocVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:moreDocVC animated:YES];
 }
+
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case 0:
+        {
+            
+        }
+            break;
+        case 1:
+        {
+            DoctorDetailViewController *docVC = [[DoctorDetailViewController alloc]init];
+            docVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:docVC animated:YES];
+        }
+            break;
+        case 2:
+        {
+            KnowledgeDetailViewController *healthVC = [[KnowledgeDetailViewController alloc]init];
+            healthVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:healthVC animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
 
 
 

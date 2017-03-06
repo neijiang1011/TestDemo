@@ -61,9 +61,37 @@
             break;
     }
     
+    [self setNav];
+    
     
     return YES;
 }
+
+
+- (void)setNav
+
+{
+    
+    UINavigationBar *bar = [UINavigationBar appearance];
+    
+    //设置显示的颜色
+    
+    bar.barTintColor = UIColorFromHex(0x3bd793);
+    
+    //设置字体颜色
+    
+    bar.tintColor = [UIColor whiteColor];
+    
+    [bar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    
+    //或者用这个都行
+    
+    
+    //    [bar setTitleTextAttributes:@{UITextAttributeTextColor : [UIColor whiteColor]}];
+    
+    
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

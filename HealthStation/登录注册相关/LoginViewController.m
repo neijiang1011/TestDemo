@@ -110,7 +110,7 @@
     //loginBtn
     UIButton *loginBtn = [[UIButton alloc]init];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-    loginBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    loginBtn.layer.borderColor = UIColorFromHex(0x3bd793).CGColor;
     loginBtn.layer.borderWidth = 0.5;
     loginBtn.layer.masksToBounds = YES;
     loginBtn.layer.cornerRadius = 20;
@@ -134,11 +134,11 @@
     //findBtn
     UIButton *findBtn = [[UIButton alloc]init];
     [findBtn setTitle:@"找回密码" forState:UIControlStateNormal];
-    findBtn.backgroundColor = [UIColor blueColor];
+    //findBtn.backgroundColor = [UIColor blueColor];
     [self.view addSubview:findBtn];
     //registerBtn.backgroundColor = UIColorFromHex(0xdddddd);
-    [registerBtn setTitleColor:UIColorFromHex(0x3bd793) forState:UIControlStateNormal];
-    [registerBtn addTarget:self action:@selector(retrievePas) forControlEvents:UIControlEventTouchUpInside];
+    [findBtn setTitleColor:UIColorFromHex(0x3bd793) forState:UIControlStateNormal];
+    [findBtn addTarget:self action:@selector(retrievePas) forControlEvents:UIControlEventTouchUpInside];
     
     
     TypeJudge *type = [TypeJudge sharedManager];
@@ -219,31 +219,34 @@
 - (void)clickLoginBtn {
     //[XHToast showCenterWithText:@"登录失败，请检查密码或账号是否正确" duration:2.f];
     
-    if ([_account.text isEqualToString:@""] || [_password.text isEqualToString:@""]) {
-        [XHToast showCenterWithText:@"请输入完整的信息" duration:1.5f];
-    }else {
-        [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        //default test account login
-        [MedicineBoxNetMethod boxAFPostWay:@"api/ucenter/login" HeaderToken:nil PostDic:@{@"phone":@"15196263806",@"password":_password.text} Completion:^(NSDictionary *dic){
-            [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-            
-            if ([dic[@"resultCode"] intValue] == 1) {
-                //save login return data to userReferData
-//                UserReferData *userData = [UserReferData sharedUserReferData];
-//                userData.userId = dic[@"userId"];
-//                userData.token = dic[@"authToken"];
-                
-                //save to userdefaults
-                NSUserDefaults *std = [NSUserDefaults standardUserDefaults];
-                [std setObject:dic[@"userId"] forKey:@"userId"];
-                [std setObject:dic[@"authToken"] forKey:@"authToken"];
-                
-                [self.navigationController popViewControllerAnimated:YES];
-            }else {
-                [XHToast showCenterWithText:@"账号或密码不正确" duration:1.5f];
-            }
-        }];
-    }
+//    if ([_account.text isEqualToString:@""] || [_password.text isEqualToString:@""]) {
+//        [XHToast showCenterWithText:@"请输入完整的信息" duration:1.5f];
+//    }else {
+//        [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//        //default test account login
+//        [MedicineBoxNetMethod boxAFPostWay:@"api/ucenter/login" HeaderToken:nil PostDic:@{@"phone":@"15196263806",@"password":_password.text} Completion:^(NSDictionary *dic){
+//            [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+//            
+//            if ([dic[@"resultCode"] intValue] == 1) {
+//                //save login return data to userReferData
+////                UserReferData *userData = [UserReferData sharedUserReferData];
+////                userData.userId = dic[@"userId"];
+////                userData.token = dic[@"authToken"];
+//                
+//                //save to userdefaults
+//                NSUserDefaults *std = [NSUserDefaults standardUserDefaults];
+//                [std setObject:dic[@"userId"] forKey:@"userId"];
+//                [std setObject:dic[@"authToken"] forKey:@"authToken"];
+//                
+//                [self.navigationController popViewControllerAnimated:YES];
+//            }else {
+//                [XHToast showCenterWithText:@"账号或密码不正确" duration:1.5f];
+//            }
+//        }];
+//    }
+    [XHToast showCenterWithText:@"登录成功" duration:2.f];
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 - (void)clickRegisterBtn {

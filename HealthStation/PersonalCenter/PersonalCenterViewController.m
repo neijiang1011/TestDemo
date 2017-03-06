@@ -32,12 +32,27 @@
 
 @implementation PersonalCenterViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"个人中心";
-    self.tabBarItem.image = [[UIImage imageNamed:@"个人中心-未选中"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    self.tabBarItem.selectedImage = [[UIImage imageNamed:@"个人中心-选中"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.navigationController.tabBarItem.image = [[UIImage imageNamed:@"个人中心-未选中"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.navigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"个人中心-选中"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     [self createTableView];
     [self createAlterAvatarView];
@@ -64,7 +79,7 @@
     //create tableHeaderView;
     UIView *tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 213)];
     tableView.tableHeaderView = tableHeaderView;
-    tableHeaderView.backgroundColor = [UIColor lightGrayColor];
+    tableHeaderView.backgroundColor = UIColorFromHex(0x3bd793);
     
     UIImageView *avatar = [[UIImageView alloc]initWithFrame:CGRectMake(0, 80, 80, 80)];
     avatar.layer.masksToBounds = YES;
@@ -129,12 +144,14 @@
         case 0:
         {
             _barVC = [[BarcodeViewController alloc]init];
+            _barVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:_barVC animated:YES];
         }
             break;
         case 1:
         {
             _infoVC = [[PersonalInfoViewController alloc]init];
+            _infoVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:_infoVC animated:YES];
         }
             break;
@@ -142,6 +159,7 @@
         case 2:
         {
             HealthRecordViewController *healthVC = [[HealthRecordViewController alloc]init];
+            healthVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:healthVC animated:YES];
         }
             break;
@@ -150,6 +168,7 @@
         case 3:
         {
             MyCollectionViewController *collectionVC = [[MyCollectionViewController alloc]init];
+            collectionVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:collectionVC animated:YES];
         }
             break;
@@ -157,6 +176,7 @@
         case 4:
         {
             SettingViewController *settingVC = [[SettingViewController alloc]init];
+            settingVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:settingVC animated:YES];
         }
             break;
@@ -164,6 +184,7 @@
         case 5:
         {
             SuggestionFeedbackViewController *feedbackVC = [[SuggestionFeedbackViewController alloc]init];
+            feedbackVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:feedbackVC animated:YES];
         }
             break;

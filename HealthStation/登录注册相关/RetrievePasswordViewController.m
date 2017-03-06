@@ -78,7 +78,7 @@
             UIButton *captchaBtn = [[UIButton alloc]init];
             self.verifyBtn = captchaBtn;
             [captchaBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-            captchaBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            captchaBtn.layer.borderColor = UIColorFromHex(0x3bd793).CGColor;
             captchaBtn.layer.borderWidth = 0.5;
             captchaBtn.layer.masksToBounds = YES;
             captchaBtn.layer.cornerRadius = 10;

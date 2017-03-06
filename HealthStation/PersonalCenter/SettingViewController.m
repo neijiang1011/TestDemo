@@ -92,6 +92,22 @@
 }
 
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.row) {
+        case 6:
+        {
+            [self.navigationController popToViewController:self.navigationController.viewControllers[0] animated:NO];
+            //通知首页弹出登录页
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
 
 
 

@@ -22,7 +22,7 @@
     
     //跳转登录界面
     LoginViewController *loginnVC = [[LoginViewController alloc]init];
-    //loginnVC.navigationItem.hidesBackButton = YES;
+    loginnVC.navigationItem.hidesBackButton = YES;
     [self.navigationController pushViewController:loginnVC animated:NO];
 }
 

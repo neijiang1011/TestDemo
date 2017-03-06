@@ -20,13 +20,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //self.title = @"详情";
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self layoutUI];
 }
 
 - (void)layoutUI {
     self.view.backgroundColor = [UIColor whiteColor];
     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT-64)];
-    _webView.backgroundColor = [UIColor greenColor];
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.baidu.com"]];
     [self.view addSubview: _webView];
     [_webView loadRequest:request];

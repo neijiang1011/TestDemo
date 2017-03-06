@@ -31,7 +31,7 @@
     //topView refer
     UIView *topView = [[UIView alloc]init];
     [scrollView addSubview:topView];
-    topView.backgroundColor = UIColorFromHex(0xfe8484);
+    topView.backgroundColor = UIColorFromHex(0x3bd793);
     
     
     UILabel *titleLabel = [[UILabel alloc]init];

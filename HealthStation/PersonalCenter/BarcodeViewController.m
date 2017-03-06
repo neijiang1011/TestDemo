@@ -14,10 +14,17 @@
 
 @implementation BarcodeViewController
 
+
+//- (void)viewWillAppear:(BOOL)animated {
+//    self.hidesBottomBarWhenPushed = YES;
+//}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"我的二维码";
+    
     
     // Do any additional setup after loading the view.
     [self layoutUI];

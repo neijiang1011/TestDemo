@@ -42,6 +42,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self createCellSubViews];
     }
     
@@ -129,8 +130,10 @@
     _completeBtn = completeBtn;
     
     UIButton *checkBtn = [[UIButton alloc]init];
-    [checkBtn setTitle:@"完成问诊" forState:UIControlStateNormal];
+    [checkBtn setTitle:@"查看问诊" forState:UIControlStateNormal];
     [checkBtn setBackgroundColor:UIColorFromHex(0x00d796)];
+    //checkBtn.backgroundColor = [UIColor blueColor];
+    //checkBtn setback
     [checkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     checkBtn.layer.borderColor = UIColorFromHex(0x00d796).CGColor;
     checkBtn.layer.borderWidth = 1;
