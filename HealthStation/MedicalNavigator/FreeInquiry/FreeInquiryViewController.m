@@ -9,17 +9,24 @@
 #import "FreeInquiryViewController.h"
 #import "Masonry.h"
 #import "POPViewController.h"
-#import "aaaViewController.h"
-#import "bbbViewController.h"
+//#import "aaaViewController.h"
+#import "ElectrocardiogramTableViewController.h"
+#import "HeartLungVoiceTableViewController.h"
+//#import "bbbViewController.h"
 
 #define YOffset 64.f
 
-@interface FreeInquiryViewController ()
+@interface FreeInquiryViewController ()<UIPickerViewDelegate>
 @property (nonatomic, strong) UITextView *textInput;
 @property (nonatomic, strong) UIView *cornerHolder;
 @property (nonatomic, strong) UIImageView *image1;
 @property (nonatomic, strong) UIImageView *image2;
 @property (nonatomic, strong) UIImageView *image3;
+
+
+@property (strong,nonatomic)UIView *selectAvatarView;
+//@property (strong,nonatomic)UIImageView *selectedPicImageView;
+
 @end
 
 @implementation FreeInquiryViewController
@@ -159,22 +166,158 @@
                 break;
         }
     }
+    
+    [self createAlterAvatarView];
 }
 
 
 - (void)electrocardiogramBtn {
-    aaaViewController *aa = [[aaaViewController alloc]init];
-    [self.navigationController pushViewController:aa animated:YES];
+    ElectrocardiogramTableViewController *elecVC = [[ElectrocardiogramTableViewController alloc]init];
+    [self.navigationController pushViewController:elecVC animated:YES];
 }
 
 - (void)heartLungBtn {
-    bbbViewController *bb = [[bbbViewController alloc]init];
-    [self.navigationController pushViewController:bb animated:YES];
+    HeartLungVoiceTableViewController *voiceVC = [[HeartLungVoiceTableViewController alloc]init];
+    [self.navigationController pushViewController:voiceVC animated:YES];
 }
 
 - (void)imageBtn {
+    _selectAvatarView.hidden = NO;
+}
+
+#pragma mark - 点击图片button，调用相册或相机照片.
+#pragma mark - 选择头像
+//开始拍照
+-(void)takePhoto
+{
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;//先设定sourceType为相机，然后判断相机是否可用
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
+    {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        //设置拍照后的图片可被编辑
+        picker.allowsEditing = YES;
+        picker.sourceType = sourceType;
+        
+        [self presentViewController:picker animated:YES completion:nil];
+    }else
+    {
+        NSLog(@"模拟其中无法打开照相机,请在真机中使用");
+    }
+}
+
+
+//打开本地相册
+-(void)LocalPhoto
+{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
+    //设置选择后的图片可被编辑
+    picker.allowsEditing = YES;
+    //[self presentModalViewController:picker animated:YES];
+    [self presentViewController:picker animated:YES completion:nil];
+    //[picker release];
+}
+
+
+
+#pragma mark - alter avatar refer
+- (void)createAlterAvatarView {
+    UIView *view = [[UIView alloc]initWithFrame:self.view.frame];
+    view.hidden = YES;
+    _selectAvatarView = view;
+    [view setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.9]];
+    [self.navigationController.view addSubview:view];
+    
+    UIButton *camera = [[UIButton alloc]init];
+    [camera setBackgroundImage:[UIImage imageNamed:@"相机"] forState:UIControlStateNormal];
+    [view addSubview:camera];
+    [camera addTarget:self action:@selector(takePhoto) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *photoAlbum = [[UIButton alloc]init];
+    [photoAlbum setBackgroundImage:[UIImage imageNamed:@"相册"] forState:UIControlStateNormal];
+    [view addSubview:photoAlbum];
+    [photoAlbum addTarget:self action:@selector(LocalPhoto) forControlEvents:UIControlEventTouchUpInside];
+    
+    //cancelBtn
+    UIButton *registerBtn = [[UIButton alloc]init];
+    [registerBtn setTitle:@"取消" forState:UIControlStateNormal];
+    registerBtn.layer.borderColor = UIColorFromHex(0x3bd793).CGColor;
+    registerBtn.layer.borderWidth = 1;
+    registerBtn.layer.masksToBounds = YES;
+    registerBtn.layer.cornerRadius = 20;
+    [view addSubview:registerBtn];
+    registerBtn.backgroundColor = UIColorFromHex(0xffffff);
+    [registerBtn setTitleColor:UIColorFromHex(0x3bd793) forState:UIControlStateNormal];
+    [registerBtn addTarget:self action:@selector(cancelAvatarBtn) forControlEvents:UIControlEventTouchUpInside];
+    
+    [camera mas_makeConstraints:^(MASConstraintMaker *maker){
+        maker.top.equalTo(view).offset(225);
+        maker.width.equalTo(@58);
+        maker.height.equalTo(@58);
+        maker.right.equalTo(view.mas_centerX).offset(-36);
+    }];
+    
+    [photoAlbum mas_makeConstraints:^(MASConstraintMaker *maker){
+        maker.top.equalTo(view).offset(225);
+        maker.width.equalTo(@58);
+        maker.height.equalTo(@58);
+        maker.left.equalTo(view.mas_centerX).offset(36);
+    }];
+    
+    [registerBtn mas_makeConstraints:^(MASConstraintMaker *maker){
+        maker.centerX.equalTo(view.mas_centerX);
+        maker.top.equalTo(view).offset(360);
+        maker.width.equalTo(@135);
+        maker.height.equalTo(@48);
+    }];
+}
+
+- (void)cancelAvatarBtn {
+    _selectAvatarView.hidden = YES;
+}
+
+
+//当选择一张图片后进入这里
+-(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+
+{
+    UIImage* image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    //更改avatar
+    _image3.image = image;
+    //[self.tableView reloadData];
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    _selectAvatarView.hidden = YES;
+    
+    //UIImage *image = [UIImage imageNamed:@"icon重复"];
+    //get UserId and token
+    //    UserReferData *data = [UserReferData sharedUserReferData];
+    //    NSString *userId = data.userId;
+    //    NSString *token = data.token;
+    //    if (!token) {
+    //        return;
+    //    }
+    //
+    //
+    //    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    //    [MedicineBoxNetMethod uploadAvatar:@"api/profile/upload_avatar" UserId:userId HeaderToken:token UploadImage:image Completion:^(NSDictionary *dic){
+    //        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    //
+    //        if ([dic[@"resultCode"] intValue] == 1) {
+    //            [XHToast showCenterWithText:@"上传图片成功啦"];
+    //        }else if ([dic[@"resultCode"] intValue] == -1) {
+    //            [XHToast showCenterWithText:@"上传图片失败"];
+    //        }
+    //    }];
     
 }
+
+
+
+
 
 -(void)testAction:(UIButton *)sender{
     POPViewController *pop = [POPViewController new];

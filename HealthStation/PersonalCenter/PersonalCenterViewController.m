@@ -50,7 +50,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"个人中心";
+    //self.title = @"个人中心";
+    self.view.backgroundColor = UIColorFromHex(0x3bd793);
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationController.tabBarItem.image = [[UIImage imageNamed:@"个人中心-未选中"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     self.navigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"个人中心-选中"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     

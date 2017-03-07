@@ -62,9 +62,9 @@ BOOL states[6];//记录多选
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         if ( states[indexPath.row] == YES) {
-            cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"checked"]];
+            cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"单选-点"]];
         }else{
-            cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"unchecked"]];
+            cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"单选-没选择"]];
         }
         
         UIView *line = [[UIView alloc]initWithFrame:CGRectMake(16, 0, self.view.frame.size.width - 2*16, 1)];
@@ -83,9 +83,9 @@ BOOL states[6];//记录多选
         [cell addSubview: label2];
     }else{
         if ( states[indexPath.row] == YES) {
-            cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"checked"]];
+            cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"单选-点"]];
         }else{
-            cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"unchecked"]];
+            cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"单选-没选择"]];
         }
 
     }

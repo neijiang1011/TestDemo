@@ -333,13 +333,7 @@
     
     UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(48, 17, 100, 16)];
     [headerView addSubview:headerLabel];
-    if (section == 0) {
-        headerLabel.text = @"附近医院";
-    }else if(section == 1){
-        headerLabel.text = @"名医问诊";
-    }else {
-        headerLabel.text = @"健康知识汇";
-    }
+    headerLabel.text = _headerTitleArr[section];
     headerLabel.textColor = UIColorFromHex(0x4f4c5f);
     headerLabel.font = [UIFont systemFontOfSize:16];
     
